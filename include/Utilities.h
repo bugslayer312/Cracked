@@ -17,7 +17,7 @@ struct to_binary {
 std::ostream& operator<<(std::ostream& os, to_binary const& tb) {
     os << "0b";
     bool found1 = false;
-    uint n = 1u << (std::numeric_limits<uint>::digits-1);
+    uint n = 1u << std::numeric_limits<uint>::digits-1;
     while (n) {
         if (n & tb.m_num) {
             found1 = true;

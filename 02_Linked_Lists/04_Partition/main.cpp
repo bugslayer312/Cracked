@@ -1,10 +1,11 @@
-#include "LinkedList.h"
-
-using namespace OldLinkedList;
+#include "LinkedList2.h"
 
 #include <iostream>
 
-void Partition(DoubleListNode<int>* l, int x) {
+using List2Node = DoubleListNode<int>;
+using Node2Ptr = List2Node::NodePtr;
+
+void Partition(Node2Ptr l, int x) {
     auto tail = l;
     while (tail->Next) {
         tail = tail->Next;
@@ -22,17 +23,20 @@ void Partition(DoubleListNode<int>* l, int x) {
     }
 }
 
-SingleListNode<int>* Partition(SingleListNode<int>* l, int x) {
+using ListNode = SingleListNode<int>;
+using NodePtr = ListNode::NodePtr;
+
+NodePtr Partition(NodePtr l, int x) {
     if (!l) {
         return nullptr;
     }
-    SingleListNode<int>* head = new SingleListNode<int>(l->Data);
+    NodePtr head = ListNode::Create(l->Data);
     head->Next = l->Next;
     l->Next = nullptr;
-    SingleListNode<int>* node = head->Next;
-    SingleListNode<int>* prev = head;
+    NodePtr node = head->Next;
+    NodePtr prev = head;
     while (node) {
-        SingleListNode<int>* next = node->Next;
+        NodePtr next = node->Next;
         if (node->Data < x) {
             node->Next = head;
             head = node;
@@ -46,19 +50,18 @@ SingleListNode<int>* Partition(SingleListNode<int>* l, int x) {
 }
 
 int main() {
-    DoubleListNode<int> l1 = {3, 24, 8, 1, 15, 17, 2, 20, 34, 5, 4, 22, 26, 1};
-    DoubleListNode<int> l2 = {3, 24, 8, 1, 15, 17, 2, 20, 34, 5, 4, 22, 26, 1};
-    std::cout << &l1 << std::endl;
-    Partition(&l1, 15);
-    Partition(&l2, 20);
-    std::cout << &l1 << std::endl;
-    std::cout << &l2 << std::endl;
+    Node2Ptr l1 = List2Node::Create({3, 24, 8, 1, 15, 17, 2, 20, 34, 5, 4, 22, 26, 1});
+    Node2Ptr l2 = List2Node::Create({3, 24, 8, 1, 15, 17, 2, 20, 34, 5, 4, 22, 26, 1});
+    std::cout << l1 << std::endl;
+    Partition(l1, 15);
+    Partition(l2, 20);
+    std::cout << l1 << std::endl;
+    std::cout << l2 << std::endl;
     std::cout << "-----\n";
-    SingleListNode<int> l3 = {3, 24, 8, 1, 15, 17, 2, 20, 34, 5, 4, 22, 26, 1};
-    std::cout << &l3 << std::endl;
-    SingleListNode<int>* p3 = Partition(&l3, 20);
+    NodePtr l3 = ListNode::Create({3, 24, 8, 1, 15, 17, 2, 20, 34, 5, 4, 22, 26, 1});
+    std::cout << l3 << std::endl;
+    NodePtr p3 = Partition(l3, 20);
     std::cout << p3 << std::endl;
-    delete p3;
 
     return 0;
 }

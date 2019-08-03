@@ -1,26 +1,25 @@
-#include "LinkedList.h"
-
-using namespace OldLinkedList;
-
+#include "LinkedList2.h"
 #include <iostream>
 
-void DeleteNode(SingleListNode<int>* node) {
+using ListNode = SingleListNode<int>;
+using NodePtr = ListNode::NodePtr;
+
+void DeleteNode(NodePtr node) {
     std::swap(node->Data, node->Next->Data);
     auto afterNext = node->Next->Next;
     node->Next->Next = nullptr;
-    delete node->Next;
     node->Next = afterNext;
 }
 
 int main() {
-    SingleListNode<int> l = {1, 5, 2, 4, 0, 3};
-    std::cout << &l << std::endl;
-    auto toDelete = l.Next->Next;
+    NodePtr l = ListNode::Create({1, 5, 2, 4, 0, 3});
+    std::cout << l << std::endl;
+    auto toDelete = l->Next->Next;
     std::cout << "Deleting " << toDelete->Data << " : ";
     DeleteNode(toDelete);
-    std::cout << &l << std::endl;
-    toDelete = l.Next;
+    std::cout << l << std::endl;
+    toDelete = l->Next;
     std::cout << "Deleting " << toDelete->Data << " : ";
     DeleteNode(toDelete);
-    std::cout << &l << std::endl;
+    std::cout << l << std::endl;
 }

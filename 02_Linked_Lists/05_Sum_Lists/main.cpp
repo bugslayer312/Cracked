@@ -14,7 +14,8 @@ NodePtr Sum(NodePtr l1, NodePtr l2) {
     NodePtr node;
     int rest = 0;
     while (l1 || l2) {
-        int d1, d2;
+        int d1 = 0;
+        int d2 = 0;
         if (l1) {
             d1 = l1->Data;
             l1 = l1->Next;

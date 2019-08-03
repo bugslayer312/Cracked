@@ -1,10 +1,11 @@
-#include "LinkedList.h"
+#include "LinkedList2.h"
 #include <iostream>
 #include <string>
 
-using namespace OldLinkedList;
+using ListNode = SingleListNode<int>;
+using NodePtr = ListNode::NodePtr;
 
-std::pair<int, bool> ReturnKthToLast(SingleListNode<int>* l, int k) {
+std::pair<int, bool> ReturnKthToLast(NodePtr l, int k) {
     int size = 0;
     auto node = l;
     while (node) {
@@ -22,8 +23,8 @@ std::pair<int, bool> ReturnKthToLast(SingleListNode<int>* l, int k) {
     return std::make_pair(node->Data, true);
 }
 
-std::pair<int, bool> ReturnKthToLast2(SingleListNode<int>* l, int k) {
-    SingleListNode<int>* p1 = nullptr;
+std::pair<int, bool> ReturnKthToLast2(NodePtr l, int k) {
+    NodePtr p1;
     auto p2 = l;
     int step = 1;
     while (p2) {
@@ -44,7 +45,7 @@ std::pair<int, bool> ReturnKthToLast2(SingleListNode<int>* l, int k) {
 }
 
 // Recursion
-std::pair<int, int> ReturnKthToLastRec(SingleListNode<int>* l, int k) {
+std::pair<int, int> ReturnKthToLastRec(NodePtr l, int k) {
     if (l) {
         std::pair<int, int> result = ReturnKthToLastRec(l->Next, k);
         if (++result.second == k) {
@@ -55,32 +56,32 @@ std::pair<int, int> ReturnKthToLastRec(SingleListNode<int>* l, int k) {
     return {0, 0};
 }
 
-std::pair<int, bool> ReturnKthToLast3(SingleListNode<int>* l, int k) {
+std::pair<int, bool> ReturnKthToLast3(NodePtr l, int k) {
     std::pair<int, int> recRes = ReturnKthToLastRec(l, k);
     return recRes.second >= k ? std::make_pair(recRes.first, true) : std::make_pair(0, false);
 }
 
 int main() {
-    SingleListNode<int> l = {4, 1, 0, 5, 10, 2, 1, 1, 0};
-    auto res = ReturnKthToLast(&l, 5);
+    NodePtr l = ListNode::Create({4, 1, 0, 5, 10, 2, 1, 1, 0});
+    auto res = ReturnKthToLast(l, 5);
     std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
-    res = ReturnKthToLast(&l, 9);
+    res = ReturnKthToLast(l, 9);
     std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
-    res = ReturnKthToLast(&l, 10);
-    std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
-    std::cout << "----\n";
-    res = ReturnKthToLast2(&l, 5);
-    std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
-    res = ReturnKthToLast2(&l, 9);
-    std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
-    res = ReturnKthToLast2(&l, 10);
+    res = ReturnKthToLast(l, 10);
     std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
     std::cout << "----\n";
-    res = ReturnKthToLast3(&l, 5);
+    res = ReturnKthToLast2(l, 5);
     std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
-    res = ReturnKthToLast3(&l, 9);
+    res = ReturnKthToLast2(l, 9);
     std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
-    res = ReturnKthToLast3(&l, 10);
+    res = ReturnKthToLast2(l, 10);
+    std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
+    std::cout << "----\n";
+    res = ReturnKthToLast3(l, 5);
+    std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
+    res = ReturnKthToLast3(l, 9);
+    std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
+    res = ReturnKthToLast3(l, 10);
     std::cout << (res.second ? std::to_string(res.first) : "Not found") << std::endl;
     return 0;
 }
