@@ -1,0 +1,2 @@
+add_subdirectory(01_Arrays_and_Strings_Tests)
+add_subdirectory(02_Linked_Lists_Tests)

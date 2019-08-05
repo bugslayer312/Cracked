@@ -1,27 +1,29 @@
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.10.0)
 project(Cracking VERSION 0.1 LANGUAGES CXX)
+
+
+set(BUILD_TYPE ${CMAKE_BUILD_TYPE})
+if (NOT BUILD_TYPE)
+    set(BUILD_TYPE "Default")
+endif()
+
+set(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/../output/${BUILD_TYPE}")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${OUTPUT}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${OUTPUT}/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${OUTPUT}/lib")
 
 set(CMAKE_CXX_FLAGS "--std=c++14 ${CMAKE_CXX_FLAGS}")
 
 include_directories(include)
 
-add_subdirectory(01_Arrays_and_Strings/01_Is_Unique)
-add_subdirectory(01_Arrays_and_Strings/02_Check_Permutation)
-add_subdirectory(01_Arrays_and_Strings/04_Palindrome_Permutation)
-add_subdirectory(01_Arrays_and_Strings/05_One_Way)
-add_subdirectory(01_Arrays_and_Strings/06_String_Compression)
-add_subdirectory(01_Arrays_and_Strings/07_Rotate_Matrix)
-add_subdirectory(01_Arrays_and_Strings/08_Zero_Matrix)
-add_subdirectory(01_Arrays_and_Strings/09_String_Rotation)
+enable_testing()
+include(CTest)
+find_package(GTest REQUIRED)
 
-add_subdirectory(02_Linked_Lists/01_Remove_Dups)
-add_subdirectory(02_Linked_Lists/02_Return_Kth_to_Last)
-add_subdirectory(02_Linked_Lists/03_Delete_Middle_Node)
-add_subdirectory(02_Linked_Lists/04_Partition)
-add_subdirectory(02_Linked_Lists/05_Sum_Lists)
-add_subdirectory(02_Linked_Lists/06_Palindrome)
-add_subdirectory(02_Linked_Lists/07_Intersection)
-add_subdirectory(02_Linked_Lists/08_Loop_Detection)
+add_subdirectory(Utilities)
+
+add_subdirectory(01_Arrays_and_Strings)
+add_subdirectory(02_Linked_Lists)
 
 add_subdirectory(03_Stacks_and_Queues/01_Three_in_One)
 add_subdirectory(03_Stacks_and_Queues/02_Stack_Min)
@@ -48,3 +50,5 @@ add_subdirectory(05_Bit_Manipulation/02_Binary_to_String)
 add_subdirectory(05_Bit_Manipulation/03_Flip_Bit_to_Win)
 add_subdirectory(05_Bit_Manipulation/04_Next_Number)
 add_subdirectory(05_Bit_Manipulation/05_Conversion)
+
+add_subdirectory(Tests)

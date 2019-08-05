@@ -1,3 +1,5 @@
+#pragma once
+
 #include <initializer_list>
 #include <iosfwd>
 #include <memory>
@@ -128,4 +130,16 @@ std::shared_ptr<List<T>> GetLastNode(std::shared_ptr<List<T>> node) {
         node = node->Next;
     }
     return node;
+}
+
+template<template<typename> class List, class T>
+bool ListsIsEqual(std::shared_ptr<List<T>> node1, std::shared_ptr<List<T>> node2) {
+    while (node1) {
+        if (!node2 || node2->Data != node1->Data) {
+            return false;
+        }
+        node1 = node1->Next;
+        node2 = node2->Next;
+    }
+    return !node1 && !node2;
 }
